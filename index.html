@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>二维码可视化配置器</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="qrcode-customizer">
+      <div class="container">
+        <h1 class="title">二维码可视化配置器</h1>
+
+        <div class="content">
+          <!-- 左侧配置面板 -->
+          <div class="config-panel">
+            <!-- 快速预设 -->
+            <div class="panel-section presets-section">
+              <h2>快速预设</h2>
+              <div class="presets-grid" id="presetsGrid"></div>
+            </div>
+
+            <!-- 基础配置 -->
+            <div class="panel-section">
+              <h2>基础配置</h2>
+
+              <div class="form-group">
+                <label>二维码内容</label>
+                <textarea
+                  id="qrData"
+                  placeholder="请输入二维码内容"
+                  rows="3"
+                ></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>宽度</label>
+                  <input type="number" id="qrWidth" min="100" max="2000" />
+                </div>
+                <div class="form-group">
+                  <label>高度</label>
+                  <input type="number" id="qrHeight" min="100" max="2000" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>边距</label>
+                  <input type="number" id="qrMargin" min="0" max="100" />
+                </div>
+                <div class="form-group">
+                  <label>渲染类型</label>
+                  <select id="qrType">
+                    <option value="svg">SVG</option>
+                    <option value="canvas">Canvas</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>形状</label>
+                <select id="qrShape">
+                  <option value="square">方形</option>
+                  <option value="circle">圆形</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- QR选项 -->
+            <div class="panel-section">
+              <h2>QR选项</h2>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>版本 (0-40)</label>
+                  <input type="number" id="qrTypeNumber" min="0" max="40" />
+                </div>
+                <div class="form-group">
+                  <label>容错率</label>
+                  <select id="qrErrorLevel">
+                    <option value="L">L (7%)</option>
+                    <option value="M">M (15%)</option>
+                    <option value="Q">Q (25%)</option>
+                    <option value="H">H (30%)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- 点样式 -->
+            <div class="panel-section">
+              <h2>点样式</h2>
+
+              <div class="form-group">
+                <label>点类型</label>
+                <select id="dotsType">
+                  <option value="square">方形</option>
+                  <option value="dots">圆点</option>
+                  <option value="rounded">圆角</option>
+                  <option value="extra-rounded">超圆角</option>
+                  <option value="classy">优雅</option>
+                  <option value="classy-rounded">优雅圆角</option>
+                  <option value="star">星形</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>点颜色</label>
+                <div class="color-picker-wrapper">
+                  <input type="color" id="dotsColor" />
+                  <input type="text" id="dotsColorText" class="color-input" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" id="useDotsGradient" />
+                  使用渐变
+                </label>
+              </div>
+
+              <div
+                id="dotsGradientConfig"
+                class="gradient-config"
+                style="display: none"
+              >
+                <div class="form-group">
+                  <label>渐变类型</label>
+                  <select id="dotsGradientType">
+                    <option value="linear">线性</option>
+                    <option value="radial">径向</option>
+                  </select>
+                </div>
+                <div class="form-group" id="dotsRotationGroup">
+                  <label>旋转角度</label>
+                  <input type="range" id="dotsRotation" min="0" max="360" />
+                  <span id="dotsRotationValue">0°</span>
+                </div>
+                <div class="form-group">
+                  <label>起始颜色</label>
+                  <input type="color" id="dotsGradientStart" />
+                </div>
+                <div class="form-group">
+                  <label>结束颜色</label>
+                  <input type="color" id="dotsGradientEnd" />
+                </div>
+              </div>
+            </div>
+
+            <!-- 角落方块样式 -->
+            <div class="panel-section">
+              <h2>角落方块样式</h2>
+
+              <div class="form-group">
+                <label>方块类型</label>
+                <select id="cornersSquareType">
+                  <option value="square">方形</option>
+                  <option value="dot">圆点</option>
+                  <option value="extra-rounded">超圆角</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>方块颜色</label>
+                <div class="color-picker-wrapper">
+                  <input type="color" id="cornersSquareColor" />
+                  <input
+                    type="text"
+                    id="cornersSquareColorText"
+                    class="color-input"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- 角落点样式 -->
+            <div class="panel-section">
+              <h2>角落点样式</h2>
+
+              <div class="form-group">
+                <label>点类型</label>
+                <select id="cornersDotType">
+                  <option value="square">方形</option>
+                  <option value="dot">圆点</option>
+                  <option value="star">星形</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>点颜色</label>
+                <div class="color-picker-wrapper">
+                  <input type="color" id="cornersDotColor" />
+                  <input
+                    type="text"
+                    id="cornersDotColorText"
+                    class="color-input"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- 背景样式 -->
+            <div class="panel-section">
+              <h2>背景样式</h2>
+
+              <div class="form-group">
+                <label>背景颜色</label>
+                <div class="color-picker-wrapper">
+                  <input type="color" id="bgColor" />
+                  <input type="text" id="bgColorText" class="color-input" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>圆角 (0-1)</label>
+                <input type="range" id="bgRound" min="0" max="1" step="0.01" />
+                <span id="bgRoundValue">0</span>
+              </div>
+            </div>
+
+            <!-- 中心图片 -->
+            <div class="panel-section">
+              <h2>中心图片</h2>
+
+              <div class="form-group">
+                <label>图片URL</label>
+                <input
+                  type="text"
+                  id="imageUrl"
+                  placeholder="输入图片URL或上传图片"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>上传图片</label>
+                <input type="file" id="imageUpload" accept="image/*" />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>图片大小 (0-1)</label>
+                  <input
+                    type="range"
+                    id="imageSize"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                  />
+                  <span id="imageSizeValue">0.4</span>
+                </div>
+                <div class="form-group">
+                  <label>图片边距</label>
+                  <input type="number" id="imageMargin" min="0" max="50" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" id="hideBackgroundDots" />
+                  隐藏背景点
+                </label>
+              </div>
+            </div>
+
+            <!-- 角落图片 -->
+            <div class="panel-section">
+              <h2>角落图片</h2>
+
+              <div class="form-group">
+                <label>角落图片URL</label>
+                <input
+                  type="text"
+                  id="cornersImageUrl"
+                  placeholder="输入SVG图片URL或上传图片"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>上传角落图片</label>
+                <input type="file" id="cornersImageUpload" accept="image/*" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧预览面板 -->
+          <div class="preview-panel">
+            <div class="preview-header">
+              <h2>预览</h2>
+              <div class="action-buttons">
+                <button id="refreshBtn" class="btn-secondary">刷新</button>
+                <button id="downloadPngBtn" class="btn-primary">下载PNG</button>
+                <button id="downloadSvgBtn" class="btn-primary">下载SVG</button>
+              </div>
+            </div>
+
+            <div class="preview-container">
+              <div id="qr-preview" class="qr-canvas"></div>
+            </div>
+
+            <div class="code-export">
+              <h3>配置代码</h3>
+              <pre><code id="configCode"></code></pre>
+              <button id="copyConfigBtn" class="btn-secondary">复制配置</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 引入 QRCodeStyling 库 -->
+    <script src="./lib/qr-code-styling.js"></script>
+
+    <!-- 引入预设配置 -->
+    <script src="presets.js"></script>
+
+    <!-- 引入主应用脚本 -->
+    <script src="app.js"></script>
+  </body>
+</html>
