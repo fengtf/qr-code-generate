@@ -119,12 +119,14 @@ export type DrawArgs = {
     size: number;
     rotation?: number;
     getNeighbor?: GetNeighbor;
+    type?: DotType;
 };
 export type BasicFigureDrawArgs = {
     x: number;
     y: number;
     size: number;
     rotation?: number;
+    type?: DotType;
 };
 export type RotateFigureArgs = {
     x: number;
