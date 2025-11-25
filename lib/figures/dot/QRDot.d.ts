@@ -4,12 +4,14 @@ export default class QRDot {
     _svg: SVGElement;
     _type: DotType;
     _window: Window;
+    _drawnRectangles: Set<string>;
     constructor({ svg, type, window }: {
         svg: SVGElement;
         type: DotType;
         window: Window;
     });
     draw(x: number, y: number, size: number, getNeighbor: GetNeighbor): void;
+    clearDrawnRectangles(): void;
     _rotateFigure({ x, y, size, rotation, draw }: RotateFigureArgs): void;
     _basicDot(args: BasicFigureDrawArgs): void;
     _basicSquare(args: BasicFigureDrawArgs): void;
@@ -24,4 +26,7 @@ export default class QRDot {
     _drawClassy({ x, y, size, getNeighbor }: DrawArgs): void;
     _drawClassyRounded({ x, y, size, getNeighbor }: DrawArgs): void;
     _drawStar({ x, y, size }: DrawArgs): void;
+    _drawBar({ x, y, size, getNeighbor }: DrawArgs, type: DotType): void;
+    _drawHorBar({ x, y, size, getNeighbor }: DrawArgs): void;
+    _drawVerBar({ x, y, size, getNeighbor }: DrawArgs): void;
 }

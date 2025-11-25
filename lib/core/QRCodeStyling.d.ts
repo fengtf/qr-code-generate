@@ -22,5 +22,7 @@ export default class QRCodeStyling {
     applyExtension(extension: ExtensionFunction): void;
     deleteExtension(): void;
     getRawData(extension?: FileExtension): Promise<Blob | Buffer | null>;
+    _blobToDataURL(blob: Blob): Promise<string>;
+    getImageData(): Promise<string>;
     download(downloadOptions?: Partial<DownloadOptions> | string): Promise<void>;
 }
