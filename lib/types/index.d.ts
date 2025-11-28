@@ -45,6 +45,7 @@ export interface QRCode {
     addData(data: string, mode?: Mode): void;
     make(): void;
     getModuleCount(): number;
+    getPositionAdjustPattern(): [number, number][];
     isDark(row: number, col: number): boolean;
     createImgTag(cellSize?: number, margin?: number): string;
     createSvgTag(cellSize?: number, margin?: number): string;
@@ -67,6 +68,7 @@ export type Options = {
     data?: string;
     image?: string;
     cornersImage?: string;
+    borderImage?: string;
     nodeCanvas?: typeof nodeCanvas;
     jsdom?: typeof JSDOM;
     qrOptions?: {

@@ -1,4 +1,4 @@
-import { CornerSquareType, DrawArgs, BasicFigureDrawArgs, RotateFigureArgs, Window } from "../../types";
+import { CornerSquareType, DrawArgs, BasicFigureDrawArgs, RotateFigureArgs, Window, DotType } from "../../types";
 export declare const availableCornerSquareTypes: CornerSquareType[];
 export default class QRCornerSquare {
     _element?: SVGElement;
@@ -6,10 +6,12 @@ export default class QRCornerSquare {
     _svg: SVGElement;
     _type: CornerSquareType;
     _window: Window;
+    _dotsType: DotType;
     _customSvg?: string[];
-    constructor({ svg, type, window, customSvg }: {
+    constructor({ svg, type, dotsType, window, customSvg }: {
         svg: SVGElement;
         type: CornerSquareType;
+        dotsType: DotType;
         window: Window;
         customSvg?: string[];
     });

@@ -13,8 +13,10 @@ export default class QRSVG {
     _qr?: QRCode;
     _image?: HTMLImageElement | Image;
     _cornersImage?: HTMLImageElement | Image;
+    _borderImage?: HTMLImageElement | Image;
     _imageUri?: string;
     _cornersImageUri?: string;
+    _borderImageUri?: string;
     _instanceId: number;
     static instanceCount: number;
     constructor(options: RequiredOptions, window: Window);
@@ -25,8 +27,11 @@ export default class QRSVG {
     drawBackground(): void;
     drawDots(filter?: FilterFunction): void;
     drawCorners(): void;
+    drawPositionAdjustPattern(): void;
+    drawBorder(): void;
     loadImage(): Promise<void>;
     loadCornersImage(): Promise<void>;
+    loadBorderImage(): Promise<void>;
     loadSvg(svgPath: string): Promise<void>;
     loadSquareSvg(svgPath: string): Promise<void>;
     drawImage({ width, height, count, dotSize }: {
